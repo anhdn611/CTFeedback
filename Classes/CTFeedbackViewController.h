@@ -48,7 +48,7 @@
 @property (nonatomic, strong) NSString *additionalDiagnosticContent;
 @property (nonatomic, strong) UIImage *screenshot;
 @property (assign) BOOL useHTML;
-
+@property (nonatomic, strong) UIColor *barTintColor;
 + (CTFeedbackViewController *)controllerWithTopics:(NSArray *)topics localizedTopics:(NSArray *)localizedTopics;
 
 + (NSArray *)defaultTopics;

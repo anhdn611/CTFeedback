@@ -106,7 +106,7 @@ typedef NS_ENUM(NSInteger, CTFeedbackSection){
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+
     self.previousNavigationBarHiddenState = self.navigationController.navigationBarHidden;
     if (self.navigationController.navigationBarHidden) {
         self.navigationController.navigationBarHidden = NO;
@@ -186,9 +186,9 @@ typedef NS_ENUM(NSInteger, CTFeedbackSection){
 - (NSArray *)inputCellItems
 {
     NSMutableArray *result = [NSMutableArray array];
-    
+
     __weak CTFeedbackViewController *weakSelf = self;
-    
+
     self.topicCellItem = [CTFeedbackTopicCellItem new];
     self.topicCellItem.topic = self.localizedTopics[self.selectedTopicIndex];
     self.topicCellItem.action = ^(CTFeedbackViewController *sender) {
@@ -227,7 +227,7 @@ typedef NS_ENUM(NSInteger, CTFeedbackSection){
         if( [weakSelf.contentCellItem.textView isFirstResponder] ) {
             [weakSelf.contentCellItem.textView resignFirstResponder];
         }
-        
+
 		UIActionSheet *choiceSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                                  delegate:weakSelf
                                                         cancelButtonTitle:CTFBLocalizedString(@"Cancel")
@@ -261,7 +261,7 @@ typedef NS_ENUM(NSInteger, CTFeedbackSection){
 - (NSArray *)appInfoCellItems
 {
     NSMutableArray *result = [NSMutableArray array];
-    
+
     if (!self.hidesAppNameCell) {
         CTFeedbackInfoCellItem *nameItem = [CTFeedbackInfoCellItem new];
         nameItem.title = CTFBLocalizedString(@"Name");
@@ -306,13 +306,13 @@ typedef NS_ENUM(NSInteger, CTFeedbackSection){
 - (NSString *)platformString
 {
     NSString *platform = [self platform];
-    
+
     // Reading a file with platform names
     // http://theiphonewiki.com/wiki/Models
     NSBundle *bundle = [NSBundle feedbackBundle];
     NSString *filePath = [bundle pathForResource:@"PlatformNames" ofType:@"plist"];
     NSDictionary *platformNamesDic = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    
+
     // Changing a platform name to a human readable version
     platform = platformNamesDic[platform] ?: platform;
 
@@ -353,7 +353,7 @@ typedef NS_ENUM(NSInteger, CTFeedbackSection){
 {
     NSString *content = self.contentCellItem.textView.text;
     NSString *body;
-    
+
     if (self.useHTML) {
         body = [NSString stringWithFormat:@"<style>td {padding-right: 20px}</style>\
                 <p>%@</p><br />\
@@ -379,11 +379,11 @@ typedef NS_ENUM(NSInteger, CTFeedbackSection){
                 self.appVersion,
                 self.appBuild];
     }
-    
+
     if (self.additionalDiagnosticContent) {
         body = [body stringByAppendingString:self.additionalDiagnosticContent];
     }
-    
+
     return body;
 }
 #pragma mark - Convert image
@@ -414,6 +414,7 @@ static NSString * const ATTACHMENT_FILENAME = @"screenshot.jpg";
         [controller setCcRecipients:self.ccRecipients];
         [controller setBccRecipients:self.bccRecipients];
         [controller setSubject:self._mailSubject];
+         controller.navigationBar.tintColor = self.barTintColor;
         [controller setMessageBody:self.mailBody isHTML:self.useHTML];
         // Attach an image to the email
         if (self.mailAttachment && [self.mailAttachment length]>0) {
@@ -428,13 +429,13 @@ static NSString * const ATTACHMENT_FILENAME = @"screenshot.jpg";
             UIAlertController *alert= [UIAlertController alertControllerWithTitle:CTFBLocalizedString(@"Error")
                                                                           message:CTFBLocalizedString(@"Mail no configuration")
                                                                    preferredStyle:UIAlertControllerStyleAlert];
-            
+
             UIAlertAction *dismiss = [UIAlertAction actionWithTitle:CTFBLocalizedString(@"Dismiss")
                                                               style:UIAlertActionStyleCancel
                                                             handler:^(UIAlertAction *action) {
                                                                 [alert dismissViewControllerAnimated:YES completion:nil];
                                                             }];
-            
+
             [alert addAction:dismiss];
             [self presentViewController:alert animated:YES completion:nil];
         } else {
@@ -571,7 +572,7 @@ static NSString * const ATTACHMENT_FILENAME = @"screenshot.jpg";
         } else {
             [self.navigationController popViewControllerAnimated:YES];
         }
-        
+
         if ([self.delegate respondsToSelector:@selector(feedbackViewController:didFinishWithMailComposeResult:error:)]) {
             [self.delegate feedbackViewController:self didFinishWithMailComposeResult:result error:error];
         }
@@ -584,13 +585,13 @@ static NSString * const ATTACHMENT_FILENAME = @"screenshot.jpg";
             UIAlertController *alert= [UIAlertController alertControllerWithTitle:CTFBLocalizedString(@"Error")
                                                                           message:error.localizedDescription
                                                                    preferredStyle:UIAlertControllerStyleAlert];
-            
+
             UIAlertAction *dismiss = [UIAlertAction actionWithTitle:CTFBLocalizedString(@"Dismiss")
                                                               style:UIAlertActionStyleCancel
                                                             handler:^(UIAlertAction *action) {
                                                                 [alert dismissViewControllerAnimated:YES completion:nil];
                                                             }];
-            
+
             [alert addAction:dismiss];
             [self presentViewController:alert animated:YES completion:nil];
         } else {
@@ -613,16 +614,16 @@ static NSString * const ATTACHMENT_FILENAME = @"screenshot.jpg";
     controller.sourceType = sourceType;
     controller.allowsEditing = YES;
     controller.delegate = self;
-	
+
 	if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
 		if ([UIPopoverPresentationController class]) {
 			controller.modalPresentationStyle = UIModalPresentationFormSheet;
-			
+
 			UIPopoverPresentationController *presentationController = [controller popoverPresentationController];
 			presentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
 			presentationController.sourceView = self.view;
 			presentationController.sourceRect = self.view.frame;
-			
+
 			[self presentViewController:controller animated:YES completion:nil];
 		} else {
 			self.popoverController = [[UIPopoverController alloc] initWithContentViewController:controller];
@@ -650,11 +651,11 @@ static NSString * const ATTACHMENT_FILENAME = @"screenshot.jpg";
 
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-	
+
 	void (^block)() = ^{
 		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:CTFeedbackSectionScreenshot];
 		CTFeedbackAdditionInfoCellItem *cellItem = self.cellItems[(NSUInteger)indexPath.section][(NSUInteger)indexPath.row];
-		
+
 		UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
 		if (image == nil){
 			image = [info objectForKey:UIImagePickerControllerOriginalImage];
@@ -663,7 +664,7 @@ static NSString * const ATTACHMENT_FILENAME = @"screenshot.jpg";
 		//        cellItem.value = [[info objectForKey:@"UIImagePickerControllerReferenceURL"] absoluteString];
 		[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 	};
-	
+
 	if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad && ![UIPopoverPresentationController class]) {
 		[self.popoverController dismissPopoverAnimated:YES];
 		block();
