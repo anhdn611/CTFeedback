@@ -1,53 +1,53 @@
 /* Localizable.strings
-  CTFeedbackDemo
+ CTFeedbackDemo
+ 
+ Created by Ryoichi Izumita on 2013/10/31.
+ Copyright (c) 2013 CAPH. All rights reserved. */
 
-  Created by Ryoichi Izumita on 2013/10/31.
-  Copyright (c) 2013 CAPH. All rights reserved. */
+"Question" = "Câu hỏi";
 
-"Question" = "Question";
+"Request" = "Yêu cầu";
 
-"Request" = "Request";
+"Bug Report" = "Báo lỗi";
 
-"Bug Report" = "Bug Report";
+"Other" = "Khác";
 
-"Other" = "Other";
-
-"Device" = "Device";
+"Device" = "Thiết bị";
 
 "iOS" = "iOS";
 
-"Name" = "Name";
+"Name" = "Tên";
 
 "Version" = "Version";
 
 "Build" = "Build";
 
-"Device Info" = "Device Info";
+"Device Info" = "Thông tin thiết bị";
 
-"App Info" = "App Info";
+"App Info" = "Thông tin ứng dụng";
 
-"Feedback" = "Feedback";
+"Feedback" = "Phản hồi";
 
-"Topic" = "Topic";
+"Topic" = "Chủ đề";
 
-"Topics" = "Topics";
+"Topics" = "Chủ đề";
 
-"Error" = "Error";
+"Error" = "Lỗi";
 
-"Mail" = "Mail";
+"Mail" = "Gửi email";
 
-"Mail no configuration"="You do not have a valid e-mail account";
+"Mail no configuration"="Bạn chưa có tài khoản email.";
 
-"Dismiss"="Dismiss";
+"Dismiss"="Ẩn";
 
-"Additional Info"="Additional Info";
+"Additional Info"="Thông tin khác";
 
-"Additional detail"="Select the feedback attachment (picture)";
+"Additional detail"="Chọn ảnh đính kèm";
 
-"Cancel"="Cancel";
+"Cancel"="Hủy";
 
-"Camera"="Camera";
+"Camera"="Máy ảnh";
 
-"PhotoLibrary"="Select from the album";
+"PhotoLibrary"="Chọn từ album";
 
-"User detail"="User detail";
+"User detail"="Thông tin người dung";
